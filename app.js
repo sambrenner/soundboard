@@ -2,9 +2,14 @@ var http = require('http');
 var fs = require('fs');
 
 http.createServer(function(req,res) {
-  var sounds = fs.readdirSync('./sounds');
-  
   res.writeHead(200, {'Content-Type':'text/html'});
+  res.write('<!DOCTYPE html>');
+
+  var sounds = fs.readdirSync('./sounds');
+
+  var css = "li { background-color: #F80; display: inline-block; height: 100px; margin: 10px; width: 100px; }";
+
+  res.write('<style type="text/css">' + css + "</style>");
 
   res.write('<ul>');
 
