@@ -1,26 +1,28 @@
+var express = require('express');
+var routes = require('./routes');
 var http = require('http');
-var fs = require('fs');
+var path = require('path');
 
-http.createServer(function(req,res) {
-  res.writeHead(200, {'Content-Type':'text/html'});
-  res.write('<!DOCTYPE html>');
+var app = express();
 
-  var sounds = fs.readdirSync('./sounds');
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
+app.use(express.favicon());
+app.use(express.logger('dev'));
+app.use(express.bodyParser());
+app.use(express.methodOverride());
+app.use(app.router);
+app.use(express.static(path.join(__dirname, 'public')));
 
-  var css = "li { background-color: #F80; display: inline-block; height: 100px; margin: 10px; width: 100px; }";
+// development only
+if ('development' == app.get('env')) {
+  app.use(express.errorHandler());
+}
 
-  res.write('<style type="text/css">' + css + "</style>");
+app.get('/', routes.index);
 
-  res.write('<ul>');
-
-  for(var i=0; i<sounds.length; i++) {
-    var sound = sounds[i];
-    res.write('<li>' + sound + '</li>');
-  }
-
-  res.write('</ul>');
-
-  res.end();
-}).listen(8080, '127.0.0.1');
-
-console.log('Soundboard is running on http://127.0.0.1:8080');
+http.createServer(app).listen(app.get('port'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});

@@ -1,0 +1,12 @@
+body {
+  padding: 20px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+li { background-color: #DDD; display: inline-block; height: 120px; margin: 10px; overflow: hidden; width: 120px; word-wrap: break-word; }
+.playing { background-color: #4F0; }
+.paused { background-color: #F40; }
