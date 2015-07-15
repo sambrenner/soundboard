@@ -7,6 +7,45 @@ a {
   color: #00B7FF;
 }
 
-li { background-color: #DDD; display: inline-block; height: 120px; margin: 10px; overflow: hidden; width: 120px; word-wrap: break-word; }
+li {
+  background-color: #DDD;
+  display: inline-block;
+  height: 120px;
+  margin: 10px;
+  overflow: hidden;
+  width: 120px;
+  word-wrap: break-word;
+  white-space: normal !important;
+}
 .playing { background-color: #4F0; }
 .paused { background-color: #F40; }
+.bs-glyphicons {
+    margin: 0px -10px 20px;
+    overflow: hidden;
+}
+.bs-glyphicons-list {
+    padding-left: 0px;
+    list-style: outside none none;
+}
+.bs-glyphicons .glyphicon {
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+.bs-glyphicons .glyphicon-class {
+    display: block;
+    text-align: center;
+    word-wrap: break-word;
+}
+.bs-glyphicons li {
+    float: left;
+    width: 120px;
+    height: 120px;
+
+}
+.bs-glyphicons-list {
+    list-style: outside none none;
+}
+.bs-glyphicons li:hover{
+    color:#fff;
+}

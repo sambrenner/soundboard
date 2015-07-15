@@ -1,6 +1,10 @@
 extends layout
 
 block content
-  ul
-  each sound in sounds
-    li= sound
+  .bs-glyphicons
+    ul.bs-glyphicons-list
+    each sound in sounds
+      li.btn
+        span.glyphicon.glyphicon-music
+        span.glyphicon-class
+        = sound
