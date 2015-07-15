@@ -14,13 +14,13 @@ soundboard.main = (function(window,document) {
     $('li').on('click', function() {
       var $this = $(this);
       var name = $this.text();
-      
+
       if($this.data('state') == 'playing') {
         //pause
         $this.removeClass('playing');
         $this.addClass('paused');
         $this.data('state', 'paused');
-        _instances[name].pause();
+        _instances[name].paused = true;
       } else if($this.data('state') == 'paused') {
         //play from pause
         _instances[name].play();
@@ -46,7 +46,7 @@ soundboard.main = (function(window,document) {
       _saveSounds();
       _bindClicks();
     }
-    
+
   }
 
   return self;
