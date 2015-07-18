@@ -17,6 +17,10 @@ li {
   word-wrap: break-word;
   white-space: normal !important;
 }
+
+nav { color: #FFF; }
+#main { margin-top: 100px; }
+
 .playing { background-color: #4F0; }
 .paused { background-color: #F40; }
 .bs-glyphicons {

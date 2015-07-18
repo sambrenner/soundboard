@@ -8,4 +8,10 @@ html
     script(type="text/javascript", src="/javascripts/soundjs-0.6.1.min.js")
     script(type="text/javascript", src="/javascripts/soundboard.js")
   body
-    block content
+    nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          h1 Soundboard
+
+    #main.container
+      block content
