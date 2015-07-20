@@ -1,13 +1,15 @@
 extends layout
 
 block content
-  .bs-glyphicons
-    ul#soundcards
-    each sound in sounds
-      li
-        .soundcard.panel.panel-default
-          .panel-heading
-            span.glyphicon.glyphicon-music
-          .panel-body
-            = sound
-          .panel-footer
+  .row
+    .bs-glyphicons
+      ul#soundcards.sortable
+        each sound, index in sounds
+          li
+            .soundcard.panel.panel-default
+              .panel-heading
+                .btn-group.soundcard-buttons(role="group", aria-label="...", data-sound-index= index)
+                .span.glyphicon.glyphicon-music
+              .panel-body
+                = sound
+              .panel-footer
