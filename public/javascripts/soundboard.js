@@ -39,7 +39,22 @@ soundboard.main = (function(window,document) {
         }, this));
       }
     });
-  }
+
+    /**
+     * Filter input.
+     *
+     * Checks to see if the track label in a soundcard matches user input.
+     * hides all the divs that do not match and only shows matching divs.
+     */
+    $('#soundboard-filter').keyup(function () {
+        var filter = $("#soundboard-filter").val();
+        console.log('$(this).find(".panel-body:not(:contains("' + filter + '"))');
+        $('#soundcards').each(function() {
+            $(this).find(".panel-body:not(:contains('" + filter + "'))").parent().parent().hide();
+            $(this).find(".panel-body:contains('" + filter + "')").parent().parent().show();
+        });
+    });
+  };
 
   var self = {
     init: function() {
@@ -47,7 +62,7 @@ soundboard.main = (function(window,document) {
       _bindClicks();
     }
 
-  }
+  };
 
   return self;
 })(this,this.document);
