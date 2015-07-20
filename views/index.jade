@@ -2,9 +2,12 @@ extends layout
 
 block content
   .bs-glyphicons
-    ul.bs-glyphicons-list
+    ul#soundcards
     each sound in sounds
-      li.btn
-        span.glyphicon.glyphicon-music
-        span.glyphicon-class
-        = sound
+      li
+        .soundcard.panel.panel-default
+          .panel-heading
+            span.glyphicon.glyphicon-music
+          .panel-body
+            = sound
+          .panel-footer
