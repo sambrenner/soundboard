@@ -28,15 +28,13 @@ passport.deserializeUser(async function(id, done) {
 });
 
 passport.use(new DropboxStrategy({
-    apiVersion: 2,
+    apiVersion: "2",
     clientID: process.env.DROPBOX_KEY,
     clientSecret: process.env.DROPBOX_SECRET,
     callbackURL: "http://localhost:3000/auth/dropbox/cb"
 }, function(token, tokenSecret, profile, done) {
     console.log(token, tokenSecret, profile);
-    fetchUser().then(user => {
-        done(null, user);
-    });
+    fetchUser().then(user => done(null, user));
 }));
 
 module.exports = passport;
