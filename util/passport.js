@@ -1,16 +1,27 @@
+const db = require("../db");
 const passport = require("koa-passport");
 
 const DropboxStrategy = require("passport-dropbox-oauth2").Strategy;
 
-const fetchUser = (() => {
-    const user = {
-        id: 1,
-        username: "test",
-        password: "test"
+const findUser = (() => {
+    return async function(id) {
+        return db.users.findById(id).catch(err => {
+            console.error(err);
+            return null;
+        });
     };
+})();
 
-    return async function() {
-        return user;
+const findOrCreateUser = (() => {
+    return async function(user) {
+        return db.task("find-or-create-user", t => {
+            return t.users.findByProvider(user)
+                .then(dbUser => {
+                    return dbUser || t.users.add(user);
+                }).catch(err => {
+                    console.error(err);
+                });
+        });
     };
 })();
 
@@ -20,7 +31,7 @@ passport.serializeUser(function(user, done) {
 
 passport.deserializeUser(async function(id, done) {
     try {
-        const user = await fetchUser();
+        const user = await findUser(id);
         done(null, user);
     } catch(err) {
         done(err);
@@ -33,8 +44,11 @@ passport.use(new DropboxStrategy({
     clientSecret: process.env.DROPBOX_SECRET,
     callbackURL: "http://localhost:3000/auth/dropbox/cb"
 }, function(token, tokenSecret, profile, done) {
-    console.log(token, tokenSecret, profile);
-    fetchUser().then(user => done(null, user));
+    findOrCreateUser({
+        provider: "dropbox",
+        providerId: profile.id,
+        name: profile.displayName
+    }).then(user => done(null, user));
 }));
 
 module.exports = passport;
