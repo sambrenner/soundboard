@@ -6,6 +6,8 @@ const session = require("koa-session");
 
 const app = new koa();
 
+const db = require("./db");
+
 const passport = require("./util/passport");
 const auth = require("./routes/auth")(passport);
 const api = require("./routes/api/v1");
@@ -20,8 +22,8 @@ app.use(passport.session());
 app.use(api.middleware());
 app.use(auth.middleware());
 
-app.listen(3000, () => {
-    //api.routes.forEach(route => {
-    //console.log(`${route.method} ${route.path}`);
-    //});
+db.users.create().then(() => {
+    app.listen(3000, () => {
+        console.log("Listening at localhost:3000");
+    });
 });
