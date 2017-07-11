@@ -7,7 +7,9 @@ module.exports = {
         empty: sql("users/empty.sql"),
         init: sql("users/init.sql"),
         drop: sql("users/drop.sql"),
-        add: sql("users/add.sql")
+        add: sql("users/add.sql"),
+        findById: sql("users/findById.sql"),
+        findByProvider: sql("users/findByProvider.sql")
     }
 };
 
