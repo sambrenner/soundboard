@@ -22,12 +22,31 @@ class UsersRepository {
         return this.db.none(sql.empty);
     }
 
-    add(name) {
-        return this.db.one(sql.add, name);
+    add(user) {
+        const now = Date.now();
+
+        return this.db.one(sql.add, {
+            name: user.name,
+            provider: user.provider,
+            providerId: user.providerId,
+            created: now,
+            modified: now
+        });
     }
 
     remove(id) {
         return this.db.result("DELETE FROM users WHERE id = $1", +id, r => r.rowCount);
+    }
+
+    findById(id) {
+        return this.db.oneOrNone(sql.findById, id);
+    }
+
+    findByProvider(provider, providerId) {
+        return this.db.oneOrNone(sql.findByProvider, {
+            provider: provider,
+            providerId: providerId
+        });
     }
 
     all() {
