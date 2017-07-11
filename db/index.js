@@ -1,5 +1,3 @@
-const pgp = require("pg-promise")();
-
 const repos = {
     users: require("./repos/users")
 };
@@ -17,6 +15,7 @@ const config = {
     user: process.env.PG_USER
 };
 
+const pgp = require("pg-promise")(options);
 const db = pgp(config);
 
 module.exports = db;
