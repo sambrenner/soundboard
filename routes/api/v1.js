@@ -1,3 +1,4 @@
+const db = require("../../db");
 const Router = require("koa-rest-router");
 
 const router = new Router({
@@ -6,8 +7,10 @@ const router = new Router({
 
 router.resource("users", {
     index: function(ctx, next) {
-        ctx.body = JSON.stringify(ctx.params);
-        return next();
+        return db.users.all().then((users) => {
+            ctx.body = JSON.stringify(users);
+            return next();
+        });
     },
 
     show: function(ctx, next) {
