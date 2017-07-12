@@ -1,2 +1,2 @@
 SELECT * FROM ${schema~}.users
-WHERE provider = ${provider} AND providerId = ${providerId}
+WHERE provider = ${provider} AND provider_id = ${providerId}
