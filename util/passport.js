@@ -15,7 +15,7 @@ const findUser = (() => {
 const findOrCreateUser = (() => {
     return async function(user) {
         return db.task("find-or-create-user", t => {
-            return t.users.findByProvider(user)
+            return t.users.findByProvider(user.provider, user.providerId)
                 .then(dbUser => {
                     return dbUser || t.users.add(user);
                 }).catch(err => {
