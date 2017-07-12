@@ -21,6 +21,7 @@ app.use(passport.session());
 
 app.use(api.middleware());
 app.use(auth.middleware());
+app.use(index.middleware());
 
 db.users.create().then(() => {
     app.listen(3000, () => {
