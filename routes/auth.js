@@ -12,5 +12,19 @@ module.exports = function(passport) {
         failureRedirect: "/"
     }));
 
+    router.addRoute("GET", "/google", passport.authenticate("google", {
+        scope: ["profile"]
+    }));
+
+    router.addRoute("GET", "/google/cb", passport.authenticate("google", {
+        successRedirect: "/app",
+        failureRedirect: "/"
+    }));
+
+    router.addRoute("GET", "/logout", ctx => {
+        ctx.logout();
+        ctx.redirect("/");
+    });
+
     return router;
 };

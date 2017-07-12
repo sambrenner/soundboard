@@ -6,17 +6,17 @@ const router = new Router({
 });
 
 router.resource("users", {
-    index: function(ctx, next) {
+    index: (ctx, next) => {
         return db.users.all().then((users) => {
             ctx.body = JSON.stringify(users);
             return next();
         });
     },
 
-    show: function(ctx, next) {
+    show: (ctx, next) => {
     },
 
-    create: function(ctx, next) {
+    create: (ctx, next) => {
     }
 });
 

@@ -2,6 +2,7 @@ const db = require("../db");
 const passport = require("koa-passport");
 
 const DropboxStrategy = require("passport-dropbox-oauth2").Strategy;
+const GoogleStrategy = require("passport-google-oauth20").Strategy;
 
 const findUser = (() => {
     return async function(id) {
@@ -46,6 +47,20 @@ passport.use(new DropboxStrategy({
 }, function(token, tokenSecret, profile, done) {
     findOrCreateUser({
         provider: "dropbox",
+        providerId: profile.id,
+        name: profile.displayName
+    }).then(user => done(null, user));
+}));
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_KEY,
+    clientSecret: process.env.GOOGLE_SECRET,
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
+    callbackURL: "http://localhost:3000/auth/google/cb"
+}, function(token, refreshToken, profile, done) {
+    console.log(profile);
+    findOrCreateUser({
+        provider: "google",
         providerId: profile.id,
         name: profile.displayName
     }).then(user => done(null, user));
