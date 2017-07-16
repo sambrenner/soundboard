@@ -7,17 +7,22 @@ const router = new Router({
 
 router.resource("users", {
     index: (ctx, next) => {
-        return db.users.all().then((users) => {
+        return db.users.all().then(users => {
             ctx.body = JSON.stringify(users);
             return next();
         });
     },
 
     show: (ctx, next) => {
-    },
-
-    create: (ctx, next) => {
+        return db.users.findById(ctx.params.user).then(user => {
+            ctx.body = JSON.stringify(user);
+            return next();
+        });
     }
 });
+
+// router.resource("soundboards", {
+//     show:
+// });
 
 module.exports = router;

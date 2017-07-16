@@ -4,6 +4,7 @@ const koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const render = require("koa-ejs");
 const session = require("koa-session");
+const serve = require("koa-static");
 
 const db = require("./db");
 const path = require("path");
@@ -33,6 +34,8 @@ app.use(passport.session());
 app.use(api.middleware());
 app.use(auth.middleware());
 app.use(index.middleware());
+
+app.use(serve(__dirname + "/frontend"));
 
 db.users.create().then(() => {
     app.listen(3000, () => {
