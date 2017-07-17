@@ -2,22 +2,24 @@ import React from "react";
 
 import SoundboardListItem from "./SoundboardListItem";
 
+import SoundboardActions from "../actions/SoundboardActions";
+import SoundboardStore from "../stores/SoundboardStore";
+
 export default class SoundboardList extends React.Component {
     constructor() {
         super();
 
         this.state = {
-            "soundboards": [
-                {
-                    "id": 1,
-                    "name": "Board 1"
-                },
-                {
-                    "id": 2,
-                    "name": "Board 2"
-                }
-            ]
+            soundboards: SoundboardStore.getAll()
         };
+    }
+
+    componentWillMount() {
+        SoundboardStore.on("change", () => {
+            this.setState({
+                soundboards: SoundboardStore.getAll()
+            });
+        });
     }
 
     render() {

@@ -17,6 +17,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "dotenv": "^4.0.0",
+    "flux": "^3.1.2",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-ejs": "^4.1.0",
