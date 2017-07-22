@@ -5,16 +5,7 @@ class SoundboardStore extends EventEmitter {
     constructor() {
         super();
 
-        this.soundboards = [
-            {
-                id: 1,
-                name: "Board 1"
-            },
-            {
-                id: 2,
-                name: "Board 2"
-            }
-        ];
+        this.soundboards = [];
     }
 
     create(name) {
@@ -35,11 +26,15 @@ class SoundboardStore extends EventEmitter {
             case "CREATE_SOUNDBOARD":
                 this.create(action.name);
                 break;
+            case "RECEIVE_SOUNDBOARDS":
+                this.soundboards = action.soundboards;
+                this.emit("change");
+                break;
         }
     }
 }
 
 const soundboardStore = new SoundboardStore();
+dispatcher.register(soundboardStore.handleActions.bind(soundboardStore));
 
-window.dispatcher = dispatcher;
 export default soundboardStore;

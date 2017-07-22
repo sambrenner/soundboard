@@ -13,3 +13,21 @@ export function deleteSoundboard(id) {
         id
     });
 }
+
+export async function reloadSoundboards() {
+    dispatcher.dispatch({
+        type: "FETCH_SOUNDBOARDS"
+    });
+
+    const rsp = await fetch("/api/v1/dropbox/folders", {
+        method: "get",
+        credentials: "same-origin"
+    });
+
+    const json = await rsp.json();
+
+    dispatcher.dispatch({
+        type: "RECEIVE_SOUNDBOARDS",
+        soundboards: json.entries
+    });
+}

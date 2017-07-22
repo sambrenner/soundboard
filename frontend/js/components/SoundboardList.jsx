@@ -2,7 +2,7 @@ import React from "react";
 
 import SoundboardListItem from "./SoundboardListItem";
 
-import SoundboardActions from "../actions/SoundboardActions";
+import * as SoundboardActions from "../actions/SoundboardActions";
 import SoundboardStore from "../stores/SoundboardStore";
 
 export default class SoundboardList extends React.Component {
@@ -15,11 +15,17 @@ export default class SoundboardList extends React.Component {
     }
 
     componentWillMount() {
+        SoundboardActions.reloadSoundboards();
+
         SoundboardStore.on("change", () => {
             this.setState({
                 soundboards: SoundboardStore.getAll()
             });
         });
+    }
+
+    createSoundboard() {
+        SoundboardActions.createSoundboard(Math.random());
     }
 
     render() {
@@ -30,7 +36,10 @@ export default class SoundboardList extends React.Component {
         });
 
         return (
-            <ul>{SoundboardList}</ul>
+            <div>
+                <button onClick={this.createSoundboard.bind(this)}>New Soundboard</button>
+                <ul>{SoundboardList}</ul>
+            </div>
         );
     }
 };
