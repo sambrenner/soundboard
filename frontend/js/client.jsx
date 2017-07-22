@@ -7,6 +7,7 @@ import Header from "./components/Header";
 
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
+import Soundboard from "./pages/Soundboard";
 
 const app = document.getElementById("app");
 const userId = parseInt(app.dataset.userId);
@@ -18,6 +19,7 @@ ReactDOM.render(
                 <Header />
 
                 <Route exact path="/" component={Home} />
+                <Route path="/soundboard/:soundboardId" component={Soundboard} />
                 <Route path="/profile" component={Profile} />
 
                 <Footer />

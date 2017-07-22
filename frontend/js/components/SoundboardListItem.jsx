@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom";
 
 export default class SoundboardList extends React.Component {
     constructor(props) {
@@ -6,13 +7,12 @@ export default class SoundboardList extends React.Component {
     }
 
     render() {
-        const { name } = this.props;
+        const {id, name} = this.props;
 
         return (
             <li>
-                {name}
+                <Link to={"/soundboard/" + id}>{name}</Link>
             </li>
-
         );
     }
 };

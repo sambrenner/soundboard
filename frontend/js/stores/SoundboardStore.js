@@ -11,14 +11,25 @@ class SoundboardStore extends EventEmitter {
     create(name) {
         this.soundboards.push({
             id: Date.now(),
+            sounds: [],
             name
         });
 
         this.emit("change");
     }
 
+    get(id) {
+        return this.soundboards.find(el => el.id === id);
+    }
+
     getAll() {
         return this.soundboards;
+    }
+
+    inflate(id, sounds) {
+        var idx = this.soundboards.findIndex(el => el.id === id);
+        this.soundboards[idx].sounds = sounds;
+        this.emit("change");
     }
 
     handleActions(action) {
@@ -27,8 +38,17 @@ class SoundboardStore extends EventEmitter {
                 this.create(action.name);
                 break;
             case "RECEIVE_SOUNDBOARDS":
-                this.soundboards = action.soundboards;
+                let soundboards = action.soundboards;
+
+                soundboards.forEach(soundboard => {
+                    soundboard.sounds = [];
+                });
+
+                this.soundboards = soundboards;
                 this.emit("change");
+                break;
+            case "RECEIVE_SOUNDBOARD":
+                this.inflate(action.parent, action.soundboard);
                 break;
         }
     }

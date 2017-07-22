@@ -14,12 +14,31 @@ export function deleteSoundboard(id) {
     });
 }
 
+export async function getSoundboard(id) {
+    dispatcher.dispatch({
+        type: "FETCH_SOUNDBOARD"
+    });
+
+    const rsp = await fetch("/api/v1/folders/" + id, {
+        method: "get",
+        credentials: "same-origin"
+    });
+
+    const json = await rsp.json();
+
+    dispatcher.dispatch({
+        type: "RECEIVE_SOUNDBOARD",
+        parent: id,
+        soundboard: json
+    });
+};
+
 export async function reloadSoundboards() {
     dispatcher.dispatch({
         type: "FETCH_SOUNDBOARDS"
     });
 
-    const rsp = await fetch("/api/v1/dropbox/folders", {
+    const rsp = await fetch("/api/v1/folders", {
         method: "get",
         credentials: "same-origin"
     });
@@ -28,6 +47,6 @@ export async function reloadSoundboards() {
 
     dispatcher.dispatch({
         type: "RECEIVE_SOUNDBOARDS",
-        soundboards: json.entries
+        soundboards: json
     });
 }

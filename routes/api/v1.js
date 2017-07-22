@@ -20,12 +20,27 @@ const ensureDropboxUser = (ctx, next) => {
     return next();
 };
 
-router.resource("dropbox/folders", {
+router.resource("folders", {
     index: [
         ensureDropboxUser,
         async (ctx, next) => {
-            const folder = await ctx.state.dropboxApi.filesListFolder({path: ""});
-            ctx.body = JSON.stringify(folder);
+            const folder = await ctx.state.dropboxApi.filesListFolder({
+                path: ""
+            });
+
+            ctx.body = JSON.stringify(folder.entries);
+            await next();
+        }
+    ],
+
+    show: [
+        ensureDropboxUser,
+        async (ctx, next) => {
+            const folder = await ctx.state.dropboxApi.filesListFolder({
+                path: ctx.params.folder
+            });
+
+            ctx.body = JSON.stringify(folder.entries);
             await next();
         }
     ]
