@@ -4,7 +4,7 @@ var webpack = require("webpack");
 module.exports = {
     context: __dirname + "/frontend",
     devtool: debug ? "inline-sourcemap" : null,
-    entry: "./js/client.jsx",
+    entry: ["babel-polyfill", "./js/client.jsx"],
     resolve: {
         extensions: [".js", ".jsx"]
     },
