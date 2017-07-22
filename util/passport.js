@@ -43,8 +43,11 @@ passport.use(new DropboxStrategy({
     apiVersion: "2",
     clientID: process.env.DROPBOX_KEY,
     clientSecret: process.env.DROPBOX_SECRET,
-    callbackURL: "http://localhost:3000/auth/dropbox/cb"
-}, function(token, tokenSecret, profile, done) {
+    callbackURL: "http://localhost:3000/auth/dropbox/cb",
+    passReqToCallback: true
+}, function(req, token, tokenSecret, profile, done) {
+    req.ctx.session.dropboxToken = token;
+
     findOrCreateUser({
         provider: "dropbox",
         providerId: profile.id,
@@ -58,7 +61,6 @@ passport.use(new GoogleStrategy({
     userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
     callbackURL: "http://localhost:3000/auth/google/cb"
 }, function(token, refreshToken, profile, done) {
-    console.log(profile);
     findOrCreateUser({
         provider: "google",
         providerId: profile.id,
