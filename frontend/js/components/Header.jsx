@@ -8,7 +8,7 @@ export default class Header extends React.Component {
                 <h1>Soundboard</h1>
                 <Link to="/">Home</Link>
                 <Link to="/profile">Profile</Link>
-                <a href="/logout">Logout</a>
+                <a href="/auth/logout">Logout</a>
             </header>
         );
     }
