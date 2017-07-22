@@ -28,6 +28,7 @@ app.keys = [process.env.SECRET_KEY];
 
 app.use(session({}, app));
 app.use(bodyParser());
+app.use((ctx, next) => (ctx.req.ctx = ctx, next())); // allow passport to access ctx
 app.use(passport.initialize());
 app.use(passport.session());
 
