@@ -47,8 +47,8 @@ class SoundboardStore extends EventEmitter {
                 this.soundboards = soundboards;
                 this.emit("change");
                 break;
-            case "RECEIVE_SOUNDBOARD":
-                this.inflate(action.parent, action.soundboard);
+            case "RECEIVE_SOUNDS":
+                this.inflate(action.parent, action.sounds);
                 break;
         }
     }

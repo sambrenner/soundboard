@@ -19,7 +19,7 @@ export default class Soundboard extends React.Component {
     componentWillMount() {
         let soundboardId = this.props.match.params.soundboardId;
 
-        SoundboardActions.getSoundboard(soundboardId);
+        SoundboardActions.getSounds(soundboardId);
 
         SoundboardStore.on("change", () => {
             this.setState({

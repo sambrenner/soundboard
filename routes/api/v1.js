@@ -46,6 +46,20 @@ router.resource("folders", {
     ]
 });
 
+router.resource("sounds", {
+    show: [
+        ensureDropboxUser,
+        async (ctx, next) => {
+            const sound = await ctx.state.dropboxApi.filesGetTemporaryLink({
+                path: ctx.params.sound
+            });
+
+            ctx.body = JSON.stringify(sound);
+            await next();
+        }
+    ]
+});
+
 router.resource("users", {
     index: (ctx, next) => {
         return db.users.all().then(users => {

@@ -6,11 +6,12 @@ export default class Sound extends React.Component {
     }
 
     render() {
-        const {name, size} = this.props;
+        const {id, name, size, url} = this.props;
 
         return (
             <li>
-                {name} {size}b
+                {id}: {name} {size}b
+                <audio src={url} controls />
             </li>
         );
     }

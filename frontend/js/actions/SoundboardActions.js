@@ -14,7 +14,7 @@ export function deleteSoundboard(id) {
     });
 }
 
-export async function getSoundboard(id) {
+export async function getSounds(id) {
     dispatcher.dispatch({
         type: "FETCH_SOUNDBOARD"
     });
@@ -24,12 +24,23 @@ export async function getSoundboard(id) {
         credentials: "same-origin"
     });
 
-    const json = await rsp.json();
+    const sounds = await rsp.json();
+
+    for (let [i, sound] of sounds.entries()) {
+        const soundDetail = await fetch("/api/v1/sounds/" + sound.id, {
+            method: "get",
+            credentials: "same-origin"
+        });
+
+        const json = await soundDetail.json();
+
+        sounds[i].url = json.link;
+    }
 
     dispatcher.dispatch({
-        type: "RECEIVE_SOUNDBOARD",
+        type: "RECEIVE_SOUNDS",
         parent: id,
-        soundboard: json
+        sounds
     });
 };
 
